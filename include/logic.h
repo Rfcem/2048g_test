@@ -12,9 +12,10 @@ typedef struct checkList {
 } checkList;
 
 CardInfo *initializeGrid( void );
-void printGrid( int grid[] );
-checkList addNewNumber( CardInfo grid[] );
+void printGrid( CardInfo grid[] );
+bool move( CardInfo *grid, int &key );
+checkList addNewNumber( CardInfo grid[], int key );
+checkList updateGrid( CardInfo grid[], int key );
 bool checkPossibleMoves( CardInfo grid[] );
-bool move( CardInfo *grid );
 
 #endif

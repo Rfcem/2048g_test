@@ -6,6 +6,7 @@
 #include "include/logic.h"
 
 StackOfCards::StackOfCards( const CardInfo *info, GraphicGrid grid ) {
+    cardsUpdated = true;
     float size = grid.getSpaceSize();
     for (int i = 0; i < 16; i++) {
         positions[ i ] = grid.getSpacePos( i );
@@ -19,13 +20,13 @@ StackOfCards::StackOfCards( const CardInfo *info, GraphicGrid grid ) {
 
 void StackOfCards::drawCards( void ) {
     for (int i = 0; i < 16 ; i++) {
-        elemets[ i ].DrawCard( BLUE );
+        elemets[ i ].DrawCard();
     }
 }
 
 void StackOfCards::updateFuturePos( const CardInfo *info ) {
     int futureIndex;
-
+    cardsUpdated = false;
     for (int i = 0; i < 16; i++) {
         if ( elemets[ i ].getValue() == 0 ) {
             continue;
@@ -34,17 +35,30 @@ void StackOfCards::updateFuturePos( const CardInfo *info ) {
 
         futureIndex = info[ i ].futureIndex;
 
-        std::cout << i << '\n';
-        std::cout << futureIndex << '\n';
-
         elemets[ i ].setFuturePos( positions[ futureIndex ] );
     }
     return;
 }
 
-void StackOfCards::updateCards( void ) {
+bool StackOfCards::updateCards( void ) {
+    bool updated = true;
+
     for (int i = 0; i < 16; i++) {
-        elemets[ i ].updateCardPos();
+        if (elemets[ i ].getValue() == 0) {
+            continue;
+        }
+        updated = elemets[ i ].updateCardPos() && updated;
     }
-    return;
+
+    cardsUpdated = updated;
+
+    return cardsUpdated;
+}
+
+void StackOfCards::refresh( const CardInfo *info ) {
+    for (int i = 0; i < 16; i++) {
+        elemets[ i ].setPos( positions[ i ] );
+        elemets[ i ].setFuturePos( positions[ i ] );
+        elemets[ i ].setValue( info[ i ].value );
+    }
 }

@@ -261,19 +261,23 @@ bool moveLeft( CardInfo grid[] ) {
     return wasMoved;
 }
 
-bool move( CardInfo grid[] ) {
+bool move( CardInfo grid[], int &key ) {
     bool wasMoved = false;
 
     if ( IsKeyPressed( KEY_UP ) ) {
+        key = KEY_UP;
         wasMoved = moveUp( grid );
 
     } else if ( IsKeyPressed( KEY_DOWN ) ) {
+        key = KEY_DOWN;
         wasMoved = moveDown( grid );
 
     } else if ( IsKeyPressed( KEY_LEFT ) ) {
+        key = KEY_LEFT;
         wasMoved = moveLeft( grid );
 
     } else if ( IsKeyPressed( KEY_RIGHT ) ) {
+        key = KEY_RIGHT;
         wasMoved = moveRight( grid );
     }
 

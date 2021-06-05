@@ -2,11 +2,11 @@
 #include "include/graphics.h"
 
 GraphicGrid::GraphicGrid( float xPosition, float yPosition, float size ) {
-    float separation = size * 0.04;
+    float separation = size * 0.02;
     float spacePosX = xPosition;
     float spacePosY = yPosition;
 
-    spaceSize = ( size * 0.8 ) / 4;
+    spaceSize = ( size * 0.9 ) / 4;
 
     background.x = xPosition;
     background.y = yPosition;
@@ -35,9 +35,9 @@ GraphicGrid::GraphicGrid( float xPosition, float yPosition, float size ) {
 }
 
 void GraphicGrid::drawGrid( Color backgroundColor, Color spaceColor ){
-    DrawRectangleRec(background, backgroundColor);
+    DrawRectangleRounded( background, 0.05, 0, backgroundColor );
     for ( int i = 0; i < 16; i++ ) {
-        DrawRectangleRec(spaces[ i ], spaceColor );
+        DrawRectangleRounded( spaces[ i ], 0.1, 0, spaceColor );
     }
 }
 

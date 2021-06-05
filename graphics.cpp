@@ -21,9 +21,11 @@ int main(void)
     GraphicGrid currentGrid( 220, 10, screenWidth - 230.0f );
 
     CardInfo *data = initializeGrid();
-    // checkList currentChekList;
+    checkList currentChekList;
     StackOfCards cards( data, currentGrid );
     bool moved = false;
+    int key;
+
 
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
@@ -40,12 +42,17 @@ int main(void)
         // card2.updateCardPos();
         // currentChekList = ( move( data ) )? addNewNumber( data ) : currentChekList;
         if ( !moved ) {
-            moved = move( data );
+            moved = move( data, key);
             if( moved ){
                 cards.updateFuturePos( data );
             }
         } else {
-            cards.updateCards();
+            if ( cards.updateCards() ) {
+                moved = false;
+                currentChekList = updateGrid( data, key );
+                cards.refresh( data );
+                printGrid( data );
+            }
         }
 
 
@@ -60,7 +67,7 @@ int main(void)
 
 
         ClearBackground(RAYWHITE);
-        currentGrid.drawGrid( GRAY, RAYWHITE );
+        currentGrid.drawGrid( { 113, 125, 126, 255 }, { 170, 183, 184, 255 } );
 
         // TODO: Make the card move
         cards.drawCards();

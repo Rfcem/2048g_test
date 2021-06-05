@@ -28,11 +28,13 @@ CardInfo *initializeGrid( void ){
 
 }
 
-void printGrid( int grid[] ) {
+
+void printGrid( CardInfo grid[] ) {
     int value;
+    std::system("cls");
 
     for (int i = 0; i < 16; i++) {
-        value = grid[i];
+        value = grid[i].value;
         if ( ( value / 1000 ) >= 1 ) {
             std::cout << value << ( ( ( i + 1 ) % 4 )? "   ": "\n" );
 
