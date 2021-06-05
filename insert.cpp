@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "include\raylib.h"
+
 #include "include\logic.h"
 
 
@@ -75,28 +77,25 @@ std::vector<int> findZerosFromRight( int grid[] ){
 }
 
 
-checkList addNewNumber( int grid[], char direction ) {
+checkList addNewNumber( int grid[] ) {
     std::vector<int> zerosPos;
     int zerosQuantity;
     int newNumVectPos;
     checkList chlist1;
 
-    switch ( direction ) {
-        case 'a':
-            zerosPos =  findZerosFromRight( grid );
-            break;
-        case 'w':
-            zerosPos =  findZerosFromBottom( grid );
-            break;
-        case 's':
-            zerosPos =  findZerosFromTop( grid );
-            break;
-        case 'd':
-            zerosPos =  findZerosFromLeft( grid );
-            break;
-        default:
-            std::cerr << "Invalid Input" << '\n';
-            return chlist1;
+    if ( IsKeyPressed( KEY_UP ) ) {
+        zerosPos =  findZerosFromBottom( grid );
+
+    } else if ( IsKeyPressed( KEY_DOWN ) ) {
+        zerosPos =  findZerosFromTop( grid );
+
+    } else if ( IsKeyPressed( KEY_LEFT ) ) {
+        zerosPos =  findZerosFromRight( grid );
+
+    } else if ( IsKeyPressed( KEY_RIGHT ) ) {
+        zerosPos =  findZerosFromLeft( grid );
+    } else {
+        return chlist1;
     }
 
     zerosQuantity = zerosPos.size();
@@ -116,7 +115,7 @@ checkList addNewNumber( int grid[], char direction ) {
     }
     chlist1.wasNewNumbAdded = true;
     chlist1.thereAreZeros = true;
-    
+
     return chlist1;
 
 }

@@ -4,24 +4,25 @@
 
 #include "include\logic.h"
 
-int *initializeGrid( void ){
+CardInfo *initializeGrid( void ){
     int firstPos = 0;
-    static int currentGrid[ 16 ];
+    static CardInfo currentGrid[ 16 ];
 
     for ( int i = 0; i < 16; i++ ) {
-        currentGrid[ i ] = 0;
+        currentGrid[ i ].futureIndex = i;
+        currentGrid[ i ].value = 0;
     }
 
     srand( time( NULL ) );
 
     firstPos = rand() % 16;
-    currentGrid[ firstPos ] = 2;
+    currentGrid[ firstPos ].value = 2;
     firstPos = rand() % 16;
 
-    while ( currentGrid[ firstPos ] == 2 ) {
+    while ( currentGrid[ firstPos ].value == 2 ) {
         firstPos = rand() % 16;
     }
-    currentGrid[ firstPos ] = 2;
+    currentGrid[ firstPos ].value = 2;
 
     return currentGrid;
 

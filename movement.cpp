@@ -1,14 +1,18 @@
 #include <iostream>
 #include <set>
 
+
+#include "include\raylib.h"
+
 #include "include\logic.h"
 
-bool moveUp( int grid[]);
-bool moveDown( int grid[]);
-bool moveRight( int grid[]);
-bool moveLeft( int grid[]);
+bool moveUp( CardInfo grid[] );
+bool moveDown( CardInfo grid[] );
+bool moveRight( CardInfo grid[] );
+bool moveLeft( CardInfo grid[] );
 
-int main() {
+/*
+int portoMain() {
     int *currentGrid;
     char key;
     bool wasMoved;
@@ -46,13 +50,12 @@ int main() {
             continue;
         }
 
-        currentChekList = addNewNumber( currentGrid, key );
         if ( currentChekList.wasNewNumbAdded ) {
             std::system("cls");
             std::cout << "Current Game" << "\n\n";
             printGrid( currentGrid );
         }
-        if ( !currentChekList.thereAreZeros ){
+        if ( !currentChekList.thereAreZeros ) {
             if ( !checkPossibleMoves( currentGrid ) ) {
                 std::cout << "Game Over!!! " << '\n';
                 break;
@@ -63,26 +66,31 @@ int main() {
 
     return 0;
 }
+*/
 
+bool updateUpPositions( int pos, CardInfo grid[], std::set<int> &posOfDoubledVals) {
 
-bool updateUpPositions( int pos, int grid[], std::set<int> &posOfDoubledVals){
-    int currentValue = grid[ pos];
+    int currentValue = grid[ pos].value;
+    int previousI = pos;
+
     int newPos = pos - 4;
     int moved = false;
 
     while ( newPos >= 0) {
-        if ( grid[newPos] == 0) {
-            grid[newPos] = currentValue;
-            grid[pos] = 0;
+        if ( grid[newPos].value == 0) {
+            grid[newPos].value = currentValue;
+            grid[ previousI ].futureIndex = newPos;
+            grid[ pos ].value = 0;
             pos = newPos;
             moved = true;
-        } else if ( grid[newPos] == currentValue) {
-            if( posOfDoubledVals.find(newPos) != posOfDoubledVals.end()){
+        } else if ( grid[newPos].value == currentValue) {
+            if( posOfDoubledVals.find(newPos) != posOfDoubledVals.end()) {
                 return moved;
             }
-            grid[newPos] = 2 * currentValue;
+            grid[newPos].value = 2 * currentValue;
+            grid[ previousI ].futureIndex =newPos;
             posOfDoubledVals.insert(newPos);
-            grid[pos] = 0;
+            grid[pos].value = 0;
             moved = true;
             return moved;
         } else {
@@ -93,24 +101,30 @@ bool updateUpPositions( int pos, int grid[], std::set<int> &posOfDoubledVals){
     return moved;
 }
 
-bool updateDownPositions( int pos, int grid[], std::set<int> &posOfDoubledVals){
-    int currentValue = grid[ pos];
+bool updateDownPositions( int pos, CardInfo grid[], std::set<int> &posOfDoubledVals) {
+
+    int currentValue = grid[ pos].value;
+    int previousI = pos;
+
     int newPos = pos + 4;
     int moved = false;
 
+
     while ( newPos < 16) {
-        if ( grid[newPos] == 0) {
-            grid[newPos] = currentValue;
-            grid[pos] = 0;
+        if ( grid[newPos].value == 0) {
+            grid[newPos].value = currentValue;
+            grid[ previousI ].futureIndex = newPos;
+            grid[ pos ].value = 0;
             pos = newPos;
             moved = true;
-        } else if ( grid[newPos] == currentValue) {
-            if( posOfDoubledVals.find(newPos) != posOfDoubledVals.end()){
+        } else if ( grid[newPos].value == currentValue) {
+            if( posOfDoubledVals.find(newPos) != posOfDoubledVals.end()) {
                 return moved;
             }
-            grid[newPos] = 2 * currentValue;
+            grid[newPos].value = 2 * currentValue;
+            grid[ previousI ].futureIndex =newPos;
             posOfDoubledVals.insert(newPos);
-            grid[pos] = 0;
+            grid[pos].value = 0;
 
             moved = true;
             return moved;
@@ -122,24 +136,30 @@ bool updateDownPositions( int pos, int grid[], std::set<int> &posOfDoubledVals){
     return moved;
 }
 
-bool updateRightPositions( int pos, int grid[], std::set<int> &posOfDoubledVals) {
-    int currentValue = grid[ pos];
+bool updateRightPositions( int pos, CardInfo grid[], std::set<int> &posOfDoubledVals) {
+
+    int currentValue = grid[ pos].value;
+    int previousI = pos;
+
     int newPos = pos + 1;
     int moved = false;
 
+
     while ( ( newPos % 4) != 0 ) {
-        if ( grid[newPos] == 0) {
-            grid[newPos] = currentValue;
-            grid[pos] = 0;
+        if ( grid[newPos].value == 0) {
+            grid[newPos].value = currentValue;
+            grid[ previousI ].futureIndex = newPos;
+            grid[ pos ].value = 0;
             pos = newPos;
             moved = true;
-        } else if ( grid[newPos] == currentValue) {
-            if( posOfDoubledVals.find(newPos) != posOfDoubledVals.end()){
+        } else if ( grid[newPos].value == currentValue) {
+            if( posOfDoubledVals.find(newPos) != posOfDoubledVals.end()) {
                 return moved;
             }
-            grid[newPos] = 2 * currentValue;
+            grid[newPos].value = 2 * currentValue;
+            grid[ previousI ].futureIndex =newPos;
             posOfDoubledVals.insert(newPos);
-            grid[pos] = 0;
+            grid[pos].value = 0;
             moved = true;
             return moved;
         } else {
@@ -150,24 +170,30 @@ bool updateRightPositions( int pos, int grid[], std::set<int> &posOfDoubledVals)
     return moved;
 }
 
-bool updateLeftPositions( int pos, int grid[], std::set<int> &posOfDoubledVals) {
-    int currentValue = grid[ pos];
+bool updateLeftPositions( int pos, CardInfo grid[], std::set<int> &posOfDoubledVals) {
+
+    int currentValue = grid[ pos].value;
+    int previousI = pos;
+
     int newPos = pos - 1;
     int moved = false;
 
+
     while ( ( (newPos + 1) % 4) != 0) {
-        if ( grid[newPos] == 0) {
-            grid[newPos] = currentValue;
-            grid[pos] = 0;
+        if ( grid[newPos].value == 0) {
+            grid[newPos].value = currentValue;
+            grid[ previousI ].futureIndex = newPos;
+            grid[ pos ].value = 0;
             pos = newPos;
             moved = true;
-        } else if ( grid[newPos] == currentValue) {
-            if( posOfDoubledVals.find(newPos) != posOfDoubledVals.end()){
+        } else if ( grid[newPos].value == currentValue) {
+            if( posOfDoubledVals.find(newPos) != posOfDoubledVals.end()) {
                 return moved;
             }
-            grid[newPos] = 2 * currentValue;
+            grid[newPos].value = 2 * currentValue;
+            grid[ previousI ].futureIndex =newPos;
             posOfDoubledVals.insert(newPos);
-            grid[pos] = 0;
+            grid[pos].value = 0;
             moved = true;
             return moved;
         } else {
@@ -178,12 +204,12 @@ bool updateLeftPositions( int pos, int grid[], std::set<int> &posOfDoubledVals) 
     return moved;
 }
 
-bool moveUp( int grid[]){
+bool moveUp( CardInfo grid[] ) {
     std::set<int> posOfDoubledVals;
     bool wasMoved = false;
 
     for (int i = 0; i < 16; i++) {
-        if (grid[i] == 0) {
+        if ( grid[ i ].value == 0 ) {
             continue;
         }
         wasMoved = updateUpPositions( i, grid, posOfDoubledVals ) || wasMoved;
@@ -192,12 +218,12 @@ bool moveUp( int grid[]){
     return wasMoved;
 }
 
-bool moveDown( int grid[]){
+bool moveDown( CardInfo grid[] ) {
     std::set<int> posOfDoubledVals;
     bool wasMoved = false;
 
     for (int i = 15; i >= 0; i--) {
-        if (grid[i] == 0) {
+        if ( grid[ i ].value == 0 ) {
             continue;
         }
         wasMoved = updateDownPositions( i, grid, posOfDoubledVals ) || wasMoved;
@@ -206,12 +232,12 @@ bool moveDown( int grid[]){
     return wasMoved;
 }
 
-bool moveRight( int grid[]){
+bool moveRight( CardInfo grid[] ) {
     std::set<int> posOfDoubledVals;
     bool wasMoved = false;
 
     for ( int i = 15; i >= 0; i-- ) {
-        if ( grid[i] == 0 ) {
+        if ( grid[ i ].value == 0 ) {
             continue;
         }
         wasMoved = updateRightPositions( i, grid, posOfDoubledVals ) || wasMoved;
@@ -220,17 +246,36 @@ bool moveRight( int grid[]){
     return wasMoved;
 }
 
-bool moveLeft( int grid[]){
+bool moveLeft( CardInfo grid[] ) {
     std::set<int> posOfDoubledVals;
     bool wasMoved = false;
 
     for ( int i = 0; i < 16; i++ ) {
-        if ( grid[i] == 0 ) {
+        if ( grid[ i ].value == 0 ) {
             continue;
         }
         wasMoved = updateLeftPositions( i, grid, posOfDoubledVals ) || wasMoved;
     }
 
+
+    return wasMoved;
+}
+
+bool move( CardInfo grid[] ) {
+    bool wasMoved = false;
+
+    if ( IsKeyPressed( KEY_UP ) ) {
+        wasMoved = moveUp( grid );
+
+    } else if ( IsKeyPressed( KEY_DOWN ) ) {
+        wasMoved = moveDown( grid );
+
+    } else if ( IsKeyPressed( KEY_LEFT ) ) {
+        wasMoved = moveLeft( grid );
+
+    } else if ( IsKeyPressed( KEY_RIGHT ) ) {
+        wasMoved = moveRight( grid );
+    }
 
     return wasMoved;
 }
