@@ -60,6 +60,42 @@ void Card::setParameters( Vector2 pos, float sz, int val) {
     return;
 }
 
+void Card::drawText( void ) {
+    float xPosFactor;
+    float yPosFactor;
+    float sizeFactor;
+
+    if ( value  < 10  ) {
+        xPosFactor = 0.4;
+        yPosFactor = 0.3;
+        sizeFactor = 0.5;
+    } else if ( value  < 100 ) {
+        xPosFactor = 0.25;
+        yPosFactor = 0.3;
+        sizeFactor = 0.5;
+    } else if ( value  < 1000 ) {
+        xPosFactor = 0.2;
+        yPosFactor = 0.35;
+        sizeFactor = 0.4;
+    } else if ( value < 10000 ) {
+        xPosFactor = 0.15;
+        yPosFactor = 0.4;
+        sizeFactor = 0.3;
+    } else {
+        xPosFactor = 0.2;
+        yPosFactor = 0.4;
+        sizeFactor = 0.3;
+    }
+
+    DrawText( TextFormat( "%d", value ),
+        actualPosition.x + size * xPosFactor,
+        actualPosition.y + size * yPosFactor,
+        size * sizeFactor,
+        WHITE
+    );
+
+}
+
 void Card::DrawCard( void ) {
 
     if ( value == 0) {
@@ -74,12 +110,9 @@ void Card::DrawCard( void ) {
         selectColor( value )
     );
 
-    DrawText( TextFormat( "%d", value ),
-        actualPosition.x + size * 0.3,
-        actualPosition.y + size * 0.3,
-        size * 0.5,
-        WHITE
-    );
+    drawText();
+
+
     return;
 }
 

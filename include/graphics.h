@@ -42,6 +42,7 @@ class Card {
         float size;
         int value;
         Vector2 futurePosition;
+        void drawText( void );
 
     public:
         Card( void );

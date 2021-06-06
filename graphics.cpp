@@ -41,6 +41,7 @@ int main(void)
 
         // card2.updateCardPos();
         // currentChekList = ( move( data ) )? addNewNumber( data ) : currentChekList;
+
         if ( !moved ) {
             moved = move( data, key);
             if( moved ){
@@ -58,6 +59,7 @@ int main(void)
 
 
 
+
         //------------------------------------------------------------------------
 
         // Draw
@@ -69,10 +71,13 @@ int main(void)
         ClearBackground(RAYWHITE);
         currentGrid.drawGrid( { 113, 125, 126, 255 }, { 170, 183, 184, 255 } );
 
-        // TODO: Make the card move
+        // TODO: Fix the number font
         cards.drawCards();
 
         DrawText("This is my first shape!", 10, 20, 20, LIGHTGRAY);
+
+
+
 
         EndDrawing();
 
