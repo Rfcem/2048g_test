@@ -21,7 +21,7 @@ int main(void)
     GraphicGrid currentGrid( 220, 10, screenWidth - 230.0f );
 
     CardInfo *data = initializeGrid();
-    checkList currentChekList;
+    CheckList currentChekList;
     StackOfCards cards( data, currentGrid );
     bool moved = false;
     int key;

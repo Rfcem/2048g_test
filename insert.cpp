@@ -77,11 +77,11 @@ std::vector<int> findZerosFromRight( CardInfo grid[] ){
 }
 
 
-checkList addNewNumber( CardInfo grid[], int key ) {
+CheckList addNewNumber( CardInfo grid[], int key ) {
     std::vector<int> zerosPos;
     int zerosQuantity;
     int newNumVectPos;
-    checkList chlist1;
+    CheckList chlist1;
 
     if ( key ==  KEY_UP  ) {
         zerosPos = findZerosFromBottom( grid );

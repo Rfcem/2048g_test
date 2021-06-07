@@ -7,8 +7,8 @@ void refreshIndex( CardInfo grid[] ) {
     }
 }
 
-checkList updateGrid( CardInfo grid[], int key) {
-    checkList checkL;
+CheckList updateGrid( CardInfo grid[], int key) {
+    CheckList checkL;
 
     refreshIndex( grid );
     checkL = addNewNumber( grid, key );

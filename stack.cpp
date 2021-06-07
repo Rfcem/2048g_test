@@ -20,7 +20,7 @@ StackOfCards::StackOfCards( const CardInfo *info, GraphicGrid grid ) {
 
 void StackOfCards::drawCards( void ) {
     for (int i = 0; i < 16 ; i++) {
-        elemets[ i ].DrawCard();
+        elemets[ i ].drawCard();
     }
 }
 

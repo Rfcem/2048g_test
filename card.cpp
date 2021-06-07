@@ -96,7 +96,7 @@ void Card::drawText( void ) {
 
 }
 
-void Card::DrawCard( void ) {
+void Card::drawCard( void ) {
 
     if ( value == 0) {
         return;

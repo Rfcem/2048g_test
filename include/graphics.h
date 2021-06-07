@@ -51,7 +51,7 @@ class Card {
         void setValue( int );
         void setPos( Vector2 );
         bool updateCardPos( void );
-        void DrawCard( void );
+        void drawCard( void );
         int getValue( void );
 
 };
@@ -60,7 +60,7 @@ class StackOfCards {
     protected:
         Card elemets[ 16 ];
         Vector2 positions[ 16 ];
-        bool cardsUpdated = true;
+        bool cardsUpdated { true };
     public:
         StackOfCards( const CardInfo*, GraphicGrid );
         void drawCards( void );

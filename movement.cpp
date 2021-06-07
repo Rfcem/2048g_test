@@ -16,7 +16,7 @@ int portoMain() {
     int *currentGrid;
     char key;
     bool wasMoved;
-    checkList currentChekList;
+    CheckList currentChekList;
 
     currentGrid = initializeGrid();
     std::system("cls");
