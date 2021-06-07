@@ -1,13 +1,13 @@
 
 #include "include\logic.h"
 
-void refreshIndex( CardInfo grid[] ) {
+void refreshIndex( std::array< CardInfo, 16 > &grid ) {
     for (int i = 0; i < 16; i++) {
         grid[ i ].futureIndex = i;
     }
 }
 
-CheckList updateGrid( CardInfo grid[], int key) {
+CheckList updateGrid( std::array< CardInfo, 16 > &grid, const int key) {
     CheckList checkL;
 
     refreshIndex( grid );

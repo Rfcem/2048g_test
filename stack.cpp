@@ -5,8 +5,10 @@
 #include "include/graphics.h"
 #include "include/logic.h"
 
-StackOfCards::StackOfCards( const CardInfo *info, GraphicGrid grid ) {
-    cardsUpdated = true;
+StackOfCards::StackOfCards( const std::array< CardInfo, 16 > info,
+    GraphicGrid grid
+) {
+
     float size = grid.getSpaceSize();
     for (int i = 0; i < 16; i++) {
         positions[ i ] = grid.getSpacePos( i );
@@ -24,7 +26,7 @@ void StackOfCards::drawCards( void ) {
     }
 }
 
-void StackOfCards::updateFuturePos( const CardInfo *info ) {
+void StackOfCards::updateFuturePos( const std::array< CardInfo, 16 > info ) {
     int futureIndex;
     cardsUpdated = false;
     for (int i = 0; i < 16; i++) {
@@ -55,7 +57,7 @@ bool StackOfCards::updateCards( void ) {
     return cardsUpdated;
 }
 
-void StackOfCards::refresh( const CardInfo *info ) {
+void StackOfCards::refresh( const std::array< CardInfo, 16 > info ) {
     for (int i = 0; i < 16; i++) {
         elemets[ i ].setPos( positions[ i ] );
         elemets[ i ].setFuturePos( positions[ i ] );

@@ -6,10 +6,6 @@
 
 #include "include\logic.h"
 
-bool moveUp( CardInfo grid[] );
-bool moveDown( CardInfo grid[] );
-bool moveRight( CardInfo grid[] );
-bool moveLeft( CardInfo grid[] );
 
 /*
 int portoMain() {
@@ -68,7 +64,10 @@ int portoMain() {
 }
 */
 
-bool updateUpPositions( int pos, CardInfo grid[], std::set<int> &posOfDoubledVals) {
+bool updateUpPositions( int pos,
+    std::array< CardInfo, 16 > &grid,
+    std::set<int> &posOfDoubledVals
+) {
 
     int currentValue = grid[ pos].value;
     int previousI = pos;
@@ -101,7 +100,10 @@ bool updateUpPositions( int pos, CardInfo grid[], std::set<int> &posOfDoubledVal
     return moved;
 }
 
-bool updateDownPositions( int pos, CardInfo grid[], std::set<int> &posOfDoubledVals) {
+bool updateDownPositions( int pos,
+    std::array< CardInfo, 16 > &grid,
+    std::set<int> &posOfDoubledVals
+) {
 
     int currentValue = grid[ pos].value;
     int previousI = pos;
@@ -136,7 +138,10 @@ bool updateDownPositions( int pos, CardInfo grid[], std::set<int> &posOfDoubledV
     return moved;
 }
 
-bool updateRightPositions( int pos, CardInfo grid[], std::set<int> &posOfDoubledVals) {
+bool updateRightPositions( int pos,
+    std::array< CardInfo, 16 > &grid,
+    std::set<int> &posOfDoubledVals
+) {
 
     int currentValue = grid[ pos].value;
     int previousI = pos;
@@ -170,7 +175,10 @@ bool updateRightPositions( int pos, CardInfo grid[], std::set<int> &posOfDoubled
     return moved;
 }
 
-bool updateLeftPositions( int pos, CardInfo grid[], std::set<int> &posOfDoubledVals) {
+bool updateLeftPositions( int pos,
+    std::array< CardInfo, 16 > &grid,
+    std::set<int> &posOfDoubledVals
+) {
 
     int currentValue = grid[ pos].value;
     int previousI = pos;
@@ -204,7 +212,7 @@ bool updateLeftPositions( int pos, CardInfo grid[], std::set<int> &posOfDoubledV
     return moved;
 }
 
-bool moveUp( CardInfo grid[] ) {
+bool moveUp( std::array< CardInfo, 16 > &grid ) {
     std::set<int> posOfDoubledVals;
     bool wasMoved = false;
 
@@ -218,7 +226,7 @@ bool moveUp( CardInfo grid[] ) {
     return wasMoved;
 }
 
-bool moveDown( CardInfo grid[] ) {
+bool moveDown( std::array< CardInfo, 16 > &grid ) {
     std::set<int> posOfDoubledVals;
     bool wasMoved = false;
 
@@ -232,7 +240,7 @@ bool moveDown( CardInfo grid[] ) {
     return wasMoved;
 }
 
-bool moveRight( CardInfo grid[] ) {
+bool moveRight( std::array< CardInfo, 16 > &grid ) {
     std::set<int> posOfDoubledVals;
     bool wasMoved = false;
 
@@ -246,7 +254,7 @@ bool moveRight( CardInfo grid[] ) {
     return wasMoved;
 }
 
-bool moveLeft( CardInfo grid[] ) {
+bool moveLeft( std::array< CardInfo, 16 > &grid ) {
     std::set<int> posOfDoubledVals;
     bool wasMoved = false;
 
@@ -261,7 +269,7 @@ bool moveLeft( CardInfo grid[] ) {
     return wasMoved;
 }
 
-bool move( CardInfo grid[], int &key ) {
+bool move( std::array< CardInfo, 16 > &grid, int &key ) {
     bool wasMoved = false;
 
     if ( IsKeyPressed( KEY_UP ) ) {

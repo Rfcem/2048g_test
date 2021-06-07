@@ -1,6 +1,15 @@
 #include "include/raylib.h"
 #include "include/graphics.h"
 
+GraphicGrid::GraphicGrid( ){
+    background = { 0, 0, 0, 0 };
+
+    for ( int i = 0; i < 16; i++ ) {
+        spaces[ i ] = {0 , 0, 0, 0};
+    }
+}
+
+
 GraphicGrid::GraphicGrid( float xPosition, float yPosition, float size ) {
     float separation = size * 0.02;
     float spacePosX = xPosition;

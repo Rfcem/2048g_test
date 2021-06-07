@@ -4,9 +4,9 @@
 
 #include "include\logic.h"
 
-CardInfo *initializeGrid( void ){
+std::array< CardInfo, 16 > initializeGrid( void ){
     int firstPos = 0;
-    static CardInfo currentGrid[ 16 ];
+    std::array< CardInfo, 16 > currentGrid;
 
     for ( int i = 0; i < 16; i++ ) {
         currentGrid[ i ].futureIndex = i;
@@ -29,7 +29,7 @@ CardInfo *initializeGrid( void ){
 }
 
 
-void printGrid( CardInfo grid[] ) {
+void printGrid( const std::array< CardInfo, 16 > grid ) {
     int value;
     std::system("cls");
 

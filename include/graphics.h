@@ -1,6 +1,8 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
+#include <array>
+
 #include "raylib.h"
 
 #include "logic.h"
@@ -27,9 +29,10 @@
 class GraphicGrid {
     protected:
         Rectangle background;
-        Rectangle spaces[ 16 ];
-        float spaceSize;
+        std::array< Rectangle, 16  > spaces;
+        float spaceSize { 0 };
     public:
+        GraphicGrid( void );
         GraphicGrid( float, float, float );
         void drawGrid( Color, Color );
         float getSpaceSize( void );
@@ -58,15 +61,15 @@ class Card {
 
 class StackOfCards {
     protected:
-        Card elemets[ 16 ];
-        Vector2 positions[ 16 ];
+        std::array< Card, 16  > elemets;
+        std::array< Vector2, 16  > positions;
         bool cardsUpdated { true };
     public:
-        StackOfCards( const CardInfo*, GraphicGrid );
+        StackOfCards( const std::array< CardInfo, 16 >, GraphicGrid );
         void drawCards( void );
-        void updateFuturePos( const CardInfo* );
+        void updateFuturePos( const std::array< CardInfo, 16 > );
         bool updateCards( void );
-        void refresh( const CardInfo* );
+        void refresh( const std::array< CardInfo, 16 > );
 
 
 };

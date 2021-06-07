@@ -1,6 +1,8 @@
 #ifndef LOGIC_H
 #define LOGIC_H
 
+#include <array>
+
 typedef struct CardInfo {
     int futureIndex { 0 };
     int value { 0 };
@@ -11,11 +13,11 @@ typedef struct CheckList {
     bool thereAreZeros { false };
 } CheckList;
 
-CardInfo *initializeGrid( void );
-void printGrid( CardInfo grid[] );
-bool move( CardInfo *grid, int &key );
-CheckList addNewNumber( CardInfo grid[], int key );
-CheckList updateGrid( CardInfo grid[], int key );
-bool checkPossibleMoves( CardInfo grid[] );
+std::array< CardInfo, 16 > initializeGrid( void );
+void printGrid( const std::array< CardInfo, 16 > );
+bool move( std::array< CardInfo, 16 > & , int & );
+CheckList addNewNumber( std::array< CardInfo, 16 > & , const int );
+CheckList updateGrid( std::array< CardInfo, 16 > & , const int  );
+bool checkPossibleMoves( std::array< CardInfo, 16 > );
 
 #endif

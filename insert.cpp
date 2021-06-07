@@ -8,7 +8,7 @@
 #include "include\logic.h"
 
 
-std::vector<int> findZerosFromBottom( CardInfo grid[] ){
+std::vector<int> findZerosFromBottom( const std::array< CardInfo, 16 > grid ){
     int j;
     std::vector<int> zerosPos;
     for ( int i = 12; i < 16; i++) {
@@ -25,7 +25,7 @@ std::vector<int> findZerosFromBottom( CardInfo grid[] ){
     return zerosPos;
 }
 
-std::vector<int> findZerosFromTop( CardInfo grid[] ){
+std::vector<int> findZerosFromTop( const std::array< CardInfo, 16 > grid ){
     int j;
     std::vector<int> zerosPos;
     for ( int i = 0; i < 4; i++) {
@@ -42,7 +42,7 @@ std::vector<int> findZerosFromTop( CardInfo grid[] ){
     return zerosPos;
 }
 
-std::vector<int> findZerosFromLeft( CardInfo grid[] ){
+std::vector<int> findZerosFromLeft( const std::array< CardInfo, 16 > grid ){
     int j;
     std::vector<int> zerosPos;
     for ( int i = 0; i < 16; i += 4) {
@@ -59,7 +59,7 @@ std::vector<int> findZerosFromLeft( CardInfo grid[] ){
     return zerosPos;
 }
 
-std::vector<int> findZerosFromRight( CardInfo grid[] ){
+std::vector<int> findZerosFromRight( const std::array< CardInfo, 16 > grid ){
     int j;
     std::vector<int> zerosPos;
     for ( int i = 3; i < 16; i += 4 ) {
@@ -77,7 +77,7 @@ std::vector<int> findZerosFromRight( CardInfo grid[] ){
 }
 
 
-CheckList addNewNumber( CardInfo grid[], int key ) {
+CheckList addNewNumber( std::array< CardInfo, 16 > & grid, const int key ) {
     std::vector<int> zerosPos;
     int zerosQuantity;
     int newNumVectPos;

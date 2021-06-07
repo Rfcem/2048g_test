@@ -20,7 +20,7 @@ int main(void)
 
     GraphicGrid currentGrid( 220, 10, screenWidth - 230.0f );
 
-    CardInfo *data = initializeGrid();
+    std::array< CardInfo, 16 > data = initializeGrid();
     CheckList currentChekList;
     StackOfCards cards( data, currentGrid );
     bool moved = false;
