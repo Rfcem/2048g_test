@@ -15,7 +15,7 @@ typedef struct CheckList {
 
 std::array< CardInfo, 16 > initializeGrid( void );
 void printGrid( const std::array< CardInfo, 16 > );
-bool move( std::array< CardInfo, 16 > & , int & );
+bool move( std::array< CardInfo, 16 > & , int & , int &);
 CheckList addNewNumber( std::array< CardInfo, 16 > & , const int );
 CheckList updateGrid( std::array< CardInfo, 16 > & , const int  );
 bool checkPossibleMoves( std::array< CardInfo, 16 > );

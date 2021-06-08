@@ -46,10 +46,11 @@ Color selectColor( int val ) {
 
 
 Card::Card( void ) {
-    actualPosition = {0, 0};
-    size = 0;
-    value = 0;
-    futurePosition = {0, 0};
+    std::cout << "Default Class constructor" << '\n';
+}
+
+Card::~Card( void ) {
+    std::cout << "Default Class Destructor" << '\n';
 }
 
 void Card::setParameters( Vector2 pos, float sz, int val) {

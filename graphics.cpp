@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include "include/raylib.h"
 
@@ -23,6 +24,8 @@ int main(void)
     std::array< CardInfo, 16 > data = initializeGrid();
     CheckList currentChekList;
     StackOfCards cards( data, currentGrid );
+    int score = 0;
+    int addScore = 0;
     bool moved = false;
     int key;
 
@@ -43,7 +46,7 @@ int main(void)
         // currentChekList = ( move( data ) )? addNewNumber( data ) : currentChekList;
 
         if ( !moved ) {
-            moved = move( data, key);
+            moved = move( data, key, addScore);
             if( moved ){
                 cards.updateFuturePos( data );
             }
@@ -53,6 +56,8 @@ int main(void)
                 currentChekList = updateGrid( data, key );
                 cards.refresh( data );
                 printGrid( data );
+                score += addScore;
+                addScore = 0;
             }
         }
 
@@ -74,7 +79,7 @@ int main(void)
         // TODO: Fix the number font
         cards.drawCards();
 
-        DrawText("This is my first shape!", 10, 20, 20, LIGHTGRAY);
+        DrawText( TextFormat( "%d", score ), 10, 20, 20, BLACK );
 
 
 

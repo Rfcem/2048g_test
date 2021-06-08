@@ -64,9 +64,11 @@ int portoMain() {
 }
 */
 
+
 bool updateUpPositions( int pos,
     std::array< CardInfo, 16 > &grid,
-    std::set<int> &posOfDoubledVals
+    std::set<int> &posOfDoubledVals,
+    int &sumScore
 ) {
 
     int currentValue = grid[ pos].value;
@@ -87,7 +89,8 @@ bool updateUpPositions( int pos,
                 return moved;
             }
             grid[newPos].value = 2 * currentValue;
-            grid[ previousI ].futureIndex =newPos;
+            sumScore += 2 * currentValue;
+            grid[ previousI ].futureIndex = newPos;
             posOfDoubledVals.insert(newPos);
             grid[pos].value = 0;
             moved = true;
@@ -102,7 +105,8 @@ bool updateUpPositions( int pos,
 
 bool updateDownPositions( int pos,
     std::array< CardInfo, 16 > &grid,
-    std::set<int> &posOfDoubledVals
+    std::set<int> &posOfDoubledVals,
+    int &sumScore
 ) {
 
     int currentValue = grid[ pos].value;
@@ -124,7 +128,8 @@ bool updateDownPositions( int pos,
                 return moved;
             }
             grid[newPos].value = 2 * currentValue;
-            grid[ previousI ].futureIndex =newPos;
+            sumScore += 2 * currentValue;
+            grid[ previousI ].futureIndex = newPos;
             posOfDoubledVals.insert(newPos);
             grid[pos].value = 0;
 
@@ -140,7 +145,8 @@ bool updateDownPositions( int pos,
 
 bool updateRightPositions( int pos,
     std::array< CardInfo, 16 > &grid,
-    std::set<int> &posOfDoubledVals
+    std::set<int> &posOfDoubledVals,
+    int &sumScore
 ) {
 
     int currentValue = grid[ pos].value;
@@ -162,7 +168,8 @@ bool updateRightPositions( int pos,
                 return moved;
             }
             grid[newPos].value = 2 * currentValue;
-            grid[ previousI ].futureIndex =newPos;
+            sumScore += 2 * currentValue;
+            grid[ previousI ].futureIndex = newPos;
             posOfDoubledVals.insert(newPos);
             grid[pos].value = 0;
             moved = true;
@@ -177,7 +184,8 @@ bool updateRightPositions( int pos,
 
 bool updateLeftPositions( int pos,
     std::array< CardInfo, 16 > &grid,
-    std::set<int> &posOfDoubledVals
+    std::set<int> &posOfDoubledVals,
+    int &sumScore
 ) {
 
     int currentValue = grid[ pos].value;
@@ -199,7 +207,8 @@ bool updateLeftPositions( int pos,
                 return moved;
             }
             grid[newPos].value = 2 * currentValue;
-            grid[ previousI ].futureIndex =newPos;
+            sumScore += 2 * currentValue;
+            grid[ previousI ].futureIndex = newPos;
             posOfDoubledVals.insert(newPos);
             grid[pos].value = 0;
             moved = true;
@@ -212,7 +221,7 @@ bool updateLeftPositions( int pos,
     return moved;
 }
 
-bool moveUp( std::array< CardInfo, 16 > &grid ) {
+bool moveUp( std::array< CardInfo, 16 > &grid, int &sumScore  ) {
     std::set<int> posOfDoubledVals;
     bool wasMoved = false;
 
@@ -220,13 +229,14 @@ bool moveUp( std::array< CardInfo, 16 > &grid ) {
         if ( grid[ i ].value == 0 ) {
             continue;
         }
-        wasMoved = updateUpPositions( i, grid, posOfDoubledVals ) || wasMoved;
+        wasMoved = updateUpPositions( i, grid, posOfDoubledVals, sumScore )
+            || wasMoved;
     }
 
     return wasMoved;
 }
 
-bool moveDown( std::array< CardInfo, 16 > &grid ) {
+bool moveDown( std::array< CardInfo, 16 > &grid, int &sumScore  ) {
     std::set<int> posOfDoubledVals;
     bool wasMoved = false;
 
@@ -234,13 +244,14 @@ bool moveDown( std::array< CardInfo, 16 > &grid ) {
         if ( grid[ i ].value == 0 ) {
             continue;
         }
-        wasMoved = updateDownPositions( i, grid, posOfDoubledVals ) || wasMoved;
+        wasMoved = updateDownPositions( i, grid, posOfDoubledVals, sumScore )
+            || wasMoved;
     }
 
     return wasMoved;
 }
 
-bool moveRight( std::array< CardInfo, 16 > &grid ) {
+bool moveRight( std::array< CardInfo, 16 > &grid, int &sumScore  ) {
     std::set<int> posOfDoubledVals;
     bool wasMoved = false;
 
@@ -248,13 +259,14 @@ bool moveRight( std::array< CardInfo, 16 > &grid ) {
         if ( grid[ i ].value == 0 ) {
             continue;
         }
-        wasMoved = updateRightPositions( i, grid, posOfDoubledVals ) || wasMoved;
+        wasMoved = updateRightPositions( i, grid, posOfDoubledVals, sumScore )
+            || wasMoved;
     }
 
     return wasMoved;
 }
 
-bool moveLeft( std::array< CardInfo, 16 > &grid ) {
+bool moveLeft( std::array< CardInfo, 16 > &grid, int &sumScore ) {
     std::set<int> posOfDoubledVals;
     bool wasMoved = false;
 
@@ -262,31 +274,32 @@ bool moveLeft( std::array< CardInfo, 16 > &grid ) {
         if ( grid[ i ].value == 0 ) {
             continue;
         }
-        wasMoved = updateLeftPositions( i, grid, posOfDoubledVals ) || wasMoved;
+        wasMoved = updateLeftPositions( i, grid, posOfDoubledVals, sumScore )
+            || wasMoved;
     }
 
 
     return wasMoved;
 }
 
-bool move( std::array< CardInfo, 16 > &grid, int &key ) {
+bool move( std::array< CardInfo, 16 > &grid, int &key, int &sumScore ) {
     bool wasMoved = false;
 
     if ( IsKeyPressed( KEY_UP ) ) {
         key = KEY_UP;
-        wasMoved = moveUp( grid );
+        wasMoved = moveUp( grid, sumScore );
 
     } else if ( IsKeyPressed( KEY_DOWN ) ) {
         key = KEY_DOWN;
-        wasMoved = moveDown( grid );
+        wasMoved = moveDown( grid, sumScore );
 
     } else if ( IsKeyPressed( KEY_LEFT ) ) {
         key = KEY_LEFT;
-        wasMoved = moveLeft( grid );
+        wasMoved = moveLeft( grid, sumScore );
 
     } else if ( IsKeyPressed( KEY_RIGHT ) ) {
         key = KEY_RIGHT;
-        wasMoved = moveRight( grid );
+        wasMoved = moveRight( grid, sumScore );
     }
 
     return wasMoved;

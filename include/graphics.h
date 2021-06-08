@@ -41,14 +41,15 @@ class GraphicGrid {
 
 class Card {
     protected:
-        Vector2 actualPosition;
-        float size;
-        int value;
-        Vector2 futurePosition;
+        Vector2 actualPosition { 0 , 0 };
+        float size { 0 };
+        int value { 0 };
+        Vector2 futurePosition { 0 , 0 };
         void drawText( void );
 
     public:
         Card( void );
+        ~Card( void );
         void setParameters( Vector2, float, int );
         void setFuturePos( Vector2 );
         void setValue( int );
