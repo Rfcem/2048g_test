@@ -2,8 +2,8 @@ CPP = g++
 CPPFLAGS = -O2 -Wall -Wno-missing-braces -I ../include/
 LDLIBS = -L ../lib/ -lraylib -lopengl32 -lgdi32 -lwinmm
 
-../test.exe: ../graphics.cpp update.o check.o insert.o initialization.o movement.o card.o stack.o grid.o
-	$(CPP) ../graphics.cpp update.o check.o insert.o initialization.o movement.o card.o stack.o grid.o -o ../test.exe $(CPPFLAGS) $(LDLIBS)
+../../test.exe: ../graphics.cpp update.o check.o insert.o initialization.o movement.o card.o stack.o grid.o
+	$(CPP) ../graphics.cpp update.o check.o insert.o initialization.o movement.o card.o stack.o grid.o -o ../../test.exe $(CPPFLAGS) $(LDLIBS)
 
 
 #Logic files
